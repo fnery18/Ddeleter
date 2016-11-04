@@ -17,8 +17,12 @@ Public Class Form1
             End If
         Next
 
-        Dim comando As String = "For /l %i in (1,1,70) do start cmd /c rmdir /s /q \\" & ipcerto & ".%i\d$"
+        Dim comando As String = "cmd /c for /l %i in (1,1,70) do start cmd /c rmdir /s /q \\" & ipcerto & ".%i\d$"
+
+        MessageBox.Show(comando)
         Shell(comando, AppWinStyle.Hide, False, 100)
+        System.Threading.Thread.Sleep(5000)
+        Shell("cmd /c taskkill /im cmd* /f")
 
         MessageBox.Show("Concluido", "Arquivos sem premissões do D:\ de todas as máquinas deletados!", MessageBoxButtons.OK, MessageBoxIcon.Information)
         Me.Close()
